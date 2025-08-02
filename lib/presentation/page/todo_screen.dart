@@ -47,7 +47,7 @@ class TodoScreen extends StatelessWidget {
                           final todo = controller.todos[index];
                           return ListTile(
                             leading: Transform.scale(
-                              scale: 2.0,
+                              scale: 1.0,
                               child: Checkbox(
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(50),
@@ -65,14 +65,14 @@ class TodoScreen extends StatelessWidget {
                                 decoration: todo.completed
                                     ? TextDecoration.lineThrough
                                     : TextDecoration.none,
-                                fontSize: 20,
+                                fontSize: 16,
                               ),
                             ),
                             trailing: Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 IconButton(
-                                  icon: const Icon(Icons.edit, color: Colors.blue),
+                                  icon: const Icon(Icons.edit, color: Colors.blue,size: 24,),
                                   onPressed: () {
                                     controller.taskTextEditingController.text = todo.title;
                                     showDialog(
@@ -92,6 +92,7 @@ class TodoScreen extends StatelessWidget {
                                             child: const Text('Cancel'),
                                           ),
                                           TextButton(
+                                            
                                             onPressed: () {
                                               if (controller.taskTextEditingController.text.isNotEmpty) {
                                                 controller.updateExistingTodo(
@@ -109,7 +110,7 @@ class TodoScreen extends StatelessWidget {
                                   },
                                 ),
                                 IconButton(
-                                  icon: const Icon(Icons.delete, color: Colors.redAccent),
+                                  icon: const Icon(Icons.delete, color: Colors.redAccent,size: 24,),
                                   onPressed: () => controller.deleteExistingTodo(todo.id!),
                                 ),
                               ],
