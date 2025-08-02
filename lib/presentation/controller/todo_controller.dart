@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:it_way_bd_task/core/utils/custom_snackbar.dart';
 import 'package:it_way_bd_task/domain/entities/todo_entity.dart';
 import 'package:it_way_bd_task/domain/usecase/add_todo.dart';
 import 'package:it_way_bd_task/domain/usecase/delete_todo.dart';
 import 'package:it_way_bd_task/domain/usecase/get_todo.dart';
 import 'package:it_way_bd_task/domain/usecase/toggle._todo.dart';
 import 'package:it_way_bd_task/domain/usecase/update_todo.dart';
+
 class TodoController extends GetxController {
   final GetTodos getTodos;
   final AddTodo addTodo;
@@ -17,7 +19,8 @@ class TodoController extends GetxController {
   final isLoading = false.obs;
   final taskTextEditingController = TextEditingController();
 
-  TodoController(this.getTodos, this.addTodo, this.updateTodo, this.toggleTodo, this.deleteTodo);
+  TodoController(this.getTodos, this.addTodo, this.updateTodo, this.toggleTodo,
+      this.deleteTodo);
 
   @override
   void onInit() {
@@ -40,7 +43,7 @@ class TodoController extends GetxController {
     try {
       final newTodo = await addTodo(title);
       todos.add(newTodo);
-      Get.snackbar('Success', 'Todo added successfully');
+      CustomSnackbar.showSnackbar('Todo added successfully');
     } catch (e) {
       // Error already shown in TodoApiService via Get.snackbar
     }
@@ -55,7 +58,7 @@ class TodoController extends GetxController {
       } else {
         todos.add(updatedTodo);
       }
-      Get.snackbar('Success', 'Todo updated successfully');
+      CustomSnackbar.showSnackbar('Todo updated successfully');
     } catch (e) {
       // Error already shown in TodoApiService via Get.snackbar
     }
@@ -70,7 +73,7 @@ class TodoController extends GetxController {
       } else {
         todos.add(updatedTodo);
       }
-      Get.snackbar('Success', 'Todo status updated successfully');
+      CustomSnackbar.showSnackbar('Todo status updated successfully');
     } catch (e) {
       // Error already shown in TodoApiService via Get.snackbar
     }
@@ -80,9 +83,9 @@ class TodoController extends GetxController {
     try {
       await deleteTodo(id);
       todos.removeWhere((todo) => todo.id == id);
-      Get.snackbar('Success', 'Todo deleted successfully');
+      CustomSnackbar.showSnackbar('Todo deleted successfully');
     } catch (e) {
       // Error already shown in TodoApiService via Get.snackbar
     }
   }
-} 
+}

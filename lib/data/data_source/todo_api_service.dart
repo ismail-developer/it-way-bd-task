@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:it_way_bd_task/core/constant/api_endspoints.dart';
 import 'package:it_way_bd_task/core/service/dio_clinet.dart';
 import 'package:it_way_bd_task/core/utils/app_logger.dart';
+import 'package:it_way_bd_task/core/utils/custom_snackbar.dart';
 import 'package:it_way_bd_task/data/model/todo_model.dart';
 import 'package:it_way_bd_task/domain/entities/todo_entity.dart';
 
@@ -20,11 +21,12 @@ class TodoApiService {
             .toList();
       }
       AppLogger.error('Failed to fetch todos: Invalid response');
-      Get.snackbar('Error', 'Failed to fetch todos: Invalid response');
+
+      CustomSnackbar.showSnackbar('Failed to fetch todos: Invalid response');
       throw Exception('Failed to fetch todos: Invalid response');
     } catch (e) {
       AppLogger.error('Failed to fetch todos: $e');
-      Get.snackbar('Error', 'Failed to fetch todos: $e');
+      CustomSnackbar.showSnackbar('Failed to fetch todos: $e');
       throw Exception('Failed to fetch todos: $e');
     }
   }
@@ -36,15 +38,16 @@ class TodoApiService {
         ApiEndPoints.addNewTodo,
         data: todo.toJson(),
       );
-      if ((response.statusCode == 200 || response.statusCode == 201) && response.data != null) {
+      if ((response.statusCode == 200 || response.statusCode == 201) &&
+          response.data != null) {
         return TodoModel.fromJson(response.data);
       }
       AppLogger.error('Failed to add todo: Invalid response');
-      Get.snackbar('Error', 'Failed to add todo: Invalid response');
+      CustomSnackbar.showSnackbar('Failed to add todo: Invalid response');
       throw Exception('Failed to add todo: Invalid response');
     } catch (e) {
       AppLogger.error('Failed to add todo: $e');
-      Get.snackbar('Error', 'Failed to add todo: $e');
+      CustomSnackbar.showSnackbar('Failed to add todo: $e');
       throw Exception('Failed to add todo: $e');
     }
   }
@@ -60,11 +63,11 @@ class TodoApiService {
         return TodoModel.fromJson(response.data);
       }
       AppLogger.error('Failed to update todo: Invalid response');
-      Get.snackbar('Error', 'Failed to update todo: Invalid response');
+      CustomSnackbar.showSnackbar('Failed to update todo: Invalid response');
       throw Exception('Failed to update todo: Invalid response');
     } catch (e) {
       AppLogger.error('Failed to update todo: $e');
-      Get.snackbar('Error', 'Failed to update todo: $e');
+      CustomSnackbar.showSnackbar('Failed to update todo: $e');
       throw Exception('Failed to update todo: $e');
     }
   }
@@ -77,11 +80,11 @@ class TodoApiService {
         return;
       }
       AppLogger.error('Failed to delete todo: Invalid response');
-      Get.snackbar('Error', 'Failed to delete todo: Invalid response');
+      CustomSnackbar.showSnackbar('Failed to delete todo: Invalid response');
       throw Exception('Failed to delete todo: Invalid response');
     } catch (e) {
       AppLogger.error('Failed to delete todo: $e');
-      Get.snackbar('Error', 'Failed to delete todo: $e');
+      CustomSnackbar.showSnackbar('Failed to delete todo: $e');
       throw Exception('Failed to delete todo: $e');
     }
   }
