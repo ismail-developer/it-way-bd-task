@@ -9,30 +9,6 @@ import 'package:it_way_bd_task/domain/usecase/toggle._todo.dart';
 import 'package:it_way_bd_task/domain/usecase/update_todo.dart';
 import 'package:it_way_bd_task/presentation/controller/todo_controller.dart';
 
-
-/* class TodoBinding extends Bindings {
-  @override
-  void dependencies() {
-    Get.lazyPut(() => DioClient());
-    Get.lazyPut(() => TodoApiService(Get.find()));
-    Get.lazyPut(() => TodoRepositoryImpl(apiService: Get.find()));
-    Get.lazyPut(() => GetTodos(Get.find()));
-    Get.lazyPut(() => AddTodo(Get.find()));
-    Get.lazyPut(() => UpdateTodo(Get.find()));
-    Get.lazyPut(() => ToggleTodo(Get.find()));
-    Get.lazyPut(() => DeleteTodo(Get.find()));
-    Get.lazyPut(() => TodoController(
-          Get.find(),
-          Get.find(),
-          Get.find(),
-          Get.find(),
-          Get.find(),
-        ));
-  }
-} */
-
-
-
 class TodoBinding extends Bindings {
   @override
   void dependencies() {

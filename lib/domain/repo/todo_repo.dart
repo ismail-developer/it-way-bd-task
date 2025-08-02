@@ -1,7 +1,4 @@
 import 'package:it_way_bd_task/domain/entities/todo_entity.dart';
-
-
-
 abstract class TodoRepository {
   Future<List<TodoEntity>> fetchAllTodos();
   Future<TodoEntity> addTodo(String title);
