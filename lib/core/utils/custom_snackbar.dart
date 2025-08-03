@@ -7,10 +7,11 @@ class CustomSnackbar {
 
   static void showSnackbar(String message, {double bottomMargin = 16}) {
     Get.closeAllSnackbars();
+    Get.closeCurrentSnackbar();
     Get.showSnackbar(
       GetSnackBar(
         message: message,
-        duration: const Duration(seconds: 2),
+        duration: const Duration(seconds: 1),
         // backgroundColor: Colors.grey,
         backgroundColor: AppColors.snackbarBackground,
         margin: EdgeInsets.only(
