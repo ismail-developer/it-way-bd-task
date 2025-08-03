@@ -6,12 +6,14 @@ import 'package:it_way_bd_task/presentation/page/todo_screen.dart';
 void main() {
   runApp(const MyApp());
 }
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Todo App',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
