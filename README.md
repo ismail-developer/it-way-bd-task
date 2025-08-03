@@ -15,14 +15,19 @@ Clean Architecture: Separates concerns into presentation, domain, and data layer
 
 Screenshots
 
-<img width="450" height="800" alt="Screenshot_20250803-072509" src="https://github.com/user-attachments/assets/10bde02b-7013-4f33-bf07-154bf5ee70de" />
-<img width="450" height="800" alt="Screenshot_20250803-072536" src="https://github.com/user-attachments/assets/84513157-bfe5-449f-9e09-2f44c9032042" />
-<img width="450" height="800" alt="Screenshot_20250803-072547" src="https://github.com/user-attachments/assets/8e93e0d7-c5d9-46ab-ab9c-b9b8c48fabce" />
-<img width="450" height="800" alt="Screenshot_20250803-072638" src="https://github.com/user-attachments/assets/a83fbddd-2720-471c-b064-dfbfa73e056c" />
-<img width="450" height="800" alt="Screenshot_20250803-072646" src="https://github.com/user-attachments/assets/5c02ae08-6d64-4c9f-aa51-ad7f76930b17" />
-<img width="450" height="800" alt="Screenshot_20250803-072709" src="https://github.com/user-attachments/assets/819419f3-7f4a-46cb-bb15-74c81aca8210" />
-<img width="450" height="800" alt="Screenshot_20250803-072713" src="https://github.com/user-attachments/assets/db549aca-7fe1-4e38-bbf3-de6a9f087f4b" />
-<img width="450" height="800" alt="Screenshot_20250803-072827" src="https://github.com/user-attachments/assets/e11e89ac-f5f0-4269-a421-0df24b55f33e" />
+
+<img width="250" height="444" alt="Screenshot_20250803-072509" src="https://github.com/user-attachments/assets/40536eb4-6fcb-4ab1-9544-b07c5cb91924" />
+<img width="250" height="444" alt="Screenshot_20250803-072536" src="https://github.com/user-attachments/assets/1cd99160-37ce-497d-82de-8e8ae7e290f3" />
+<img width="250" height="444" alt="Screenshot_20250803-072547" src="https://github.com/user-attachments/assets/e8e01e16-c7fe-4b78-a70f-1176085972b8" />
+<img width="250" height="444" alt="Screenshot_20250803-072638" src="https://github.com/user-attachments/assets/8b43bb69-e472-4346-a8c9-e5bb6cfdcc63" />
+<img width="250" height="444" alt="Screenshot_20250803-072646" src="https://github.com/user-attachments/assets/d9954cb3-3a3b-4257-b131-5e6e59e93d57" />
+<img width="250" height="444" alt="Screenshot_20250803-072709" src="https://github.com/user-attachments/assets/245d8e1f-d29c-4232-9fe2-86b4024b00a5" />
+<img width="250" height="444" alt="Screenshot_20250803-072713" src="https://github.com/user-attachments/assets/4865c73a-26d8-42a7-bbb2-ac0e39857c55" />
+<img width="250" height="444" alt="Screenshot_20250803-072726" src="https://github.com/user-attachments/assets/86a0bd6a-eeb6-438b-8553-44d805e8cd56" />
+<img width="250" height="444" alt="Screenshot_20250803-072827" src="https://github.com/user-attachments/assets/a5e8286c-97dd-4087-bb2a-9f076eaa9f01" />
+
+
+
 
 Task List
 Add Task
