@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:it_way_bd_task/core/utils/app_colors.dart';
 
 class CustomSnackbar {
   CustomSnackbar._();
@@ -10,7 +11,8 @@ class CustomSnackbar {
       GetSnackBar(
         message: message,
         duration: const Duration(seconds: 2),
-        backgroundColor: Colors.grey,
+        // backgroundColor: Colors.grey,
+        backgroundColor: AppColors.snackbarBackground,
         margin: EdgeInsets.only(
           top: 16,
           left: 16,
