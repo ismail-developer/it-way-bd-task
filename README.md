@@ -14,7 +14,7 @@ Custom Snackbar: Error and success messages with consistent styling.
 Material 3 Design: Teal-green theme with rounded containers and a Floating Action Button (FAB).
 MockAPI Integration: Persistent storage using MockAPI (https://688e8382f21ab1769f86f27c.mockapi.io/TodoApp).
 Clean Architecture: Separates concerns into presentation, domain, and data layers for maintainability.
-
+Statemanagement: Used Getx for statemanagement 
 Screenshots
 
 <img width="250" height="444" alt="Screenshot_20250803-072509" src="https://github.com/user-attachments/assets/812b5996-bfb0-4a2f-876d-e21b09c94dd5" />
