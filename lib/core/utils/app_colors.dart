@@ -11,4 +11,8 @@ class AppColors {
   static const Color snackbarText =
       Color(0xFFE6E1E5); // Light gray/white for snackbar text/icon
   static const Color white = Colors.white;
+  static const Color green = Colors.green;
+  static const Color orange = Colors.orange;
+  static const Color grey = Colors.grey;
+  static const Color black = Colors.black;
 }
