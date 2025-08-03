@@ -3,6 +3,7 @@ import 'package:it_way_bd_task/data/data_source/todo_api_service.dart';
 import 'package:it_way_bd_task/data/model/todo_model.dart';
 import 'package:it_way_bd_task/domain/entities/todo_entity.dart';
 import 'package:it_way_bd_task/domain/repo/todo_repo.dart';
+
 class TodoRepositoryImpl implements TodoRepository {
   final TodoApiService apiService;
 
@@ -21,7 +22,7 @@ class TodoRepositoryImpl implements TodoRepository {
   @override
   Future<TodoEntity> addTodo(String title) async {
     try {
-      final todo = TodoModel(title: title, completed: false);
+      final todo = TodoModel(title: title, status: 'pending');
       return await apiService.addTodo(todo);
     } catch (e) {
       AppLogger.error('Repository: Failed to add todo: $e');
@@ -32,7 +33,12 @@ class TodoRepositoryImpl implements TodoRepository {
   @override
   Future<TodoEntity> updateTodo(String id, String title) async {
     try {
-      final todo = TodoModel(id: id, title: title, completed: false);
+      final todos = await apiService.fetchAllTodos();
+      final currentTodo = todos.firstWhere(
+        (todo) => todo.id == id,
+        orElse: () => TodoModel(id: id, title: '', status: 'pending'),
+      );
+      final todo = TodoModel(id: id, title: title, status: currentTodo.status);
       return await apiService.updateTodo(id, todo);
     } catch (e) {
       AppLogger.error('Repository: Failed to update todo: $e');
@@ -41,18 +47,22 @@ class TodoRepositoryImpl implements TodoRepository {
   }
 
   @override
-  Future<TodoEntity> toggleTodo(String id, bool completed) async {
+  Future<TodoEntity> toggleTodo(String id, String status) async {
     try {
-      // Fetch the current todo to preserve the title
       final todos = await apiService.fetchAllTodos();
       final currentTodo = todos.firstWhere(
         (todo) => todo.id == id,
-        orElse: () => TodoModel(id: id, title: '', completed: completed),
+        orElse: () => TodoModel(id: id, title: '', status: 'pending'),
       );
+      final newStatus = status == 'pending'
+          ? 'in_progress'
+          : status == 'in_progress'
+              ? 'completed'
+              : 'pending';
       final todo = TodoModel(
         id: id,
-        title: currentTodo.title, // Preserve the existing title
-        completed: !completed,
+        title: currentTodo.title,
+        status: newStatus,
       );
       return await apiService.updateTodo(id, todo);
     } catch (e) {

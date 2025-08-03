@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:it_way_bd_task/core/utils/app_colors.dart';
 import 'package:it_way_bd_task/presentation/controller/todo_controller.dart';
-
 class TodoScreen extends StatelessWidget {
   const TodoScreen({super.key});
 
@@ -11,18 +10,18 @@ class TodoScreen extends StatelessWidget {
     final TodoController controller = Get.find();
 
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.primary,
+      backgroundColor: AppColors.primary,
       appBar: AppBar(
         title: const Text('Todo List'),
         centerTitle: true,
-        backgroundColor: Theme.of(context).colorScheme.primary,
+        backgroundColor: AppColors.primary,
         foregroundColor: AppColors.appBarForeground,
       ),
       body: RefreshIndicator(
         onRefresh: controller.fetchTodos,
         child: Container(
           decoration: const BoxDecoration(
-            color: AppColors.white,
+            color: Colors.white,
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(30.0),
               topRight: Radius.circular(30.0),
@@ -47,49 +46,44 @@ class TodoScreen extends StatelessWidget {
                         itemBuilder: (context, index) {
                           final todo = controller.todos[index];
                           return ListTile(
-                            leading: Transform.scale(
-                              scale: 1.0,
-                              child: Checkbox(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(50),
-                                ),
-                                value: todo.completed,
-                                onChanged: (value) {
-                                  controller.toggleTodoCompletion(
-                                      todo.id!, todo.completed);
-                                },
-                              ),
-                            ),
+                            leading: _buildStatusIcon(todo.status),
                             title: Text(
-                              todo.title,
+                              todo.title.isEmpty ? 'Untitled Task' : todo.title,
                               style: TextStyle(
-                                color:
-                                    todo.completed ? Colors.grey : Colors.black,
-                                decoration: todo.completed
+                                color: todo.status == 'completed' ? AppColors.grey : AppColors.black,
+                                decoration: todo.status == 'completed'
                                     ? TextDecoration.lineThrough
                                     : TextDecoration.none,
-                                fontSize: 16,
+                                fontSize: 16.0,
                               ),
                             ),
                             trailing: Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
+                                Text(
+                                  _formatStatus(todo.status),
+                                  style: const TextStyle(
+                                    color: AppColors.black,
+                                    fontSize: 12.0,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                                const SizedBox(width: 8.0),
                                 IconButton(
                                   icon: const Icon(
                                     Icons.edit,
                                     color: AppColors.primary,
-                                    size: 24,
                                   ),
+                                  iconSize: 24.0,
+                                  visualDensity: VisualDensity.compact,
                                   onPressed: () {
-                                    controller.taskTextEditingController.text =
-                                        todo.title;
+                                    controller.taskTextEditingController.text = todo.title;
                                     showDialog(
                                       context: context,
                                       builder: (context) => AlertDialog(
                                         title: const Text('Edit Task'),
                                         content: TextField(
-                                          controller: controller
-                                              .taskTextEditingController,
+                                          controller: controller.taskTextEditingController,
                                           decoration: const InputDecoration(
                                             labelText: 'Task Title',
                                           ),
@@ -97,21 +91,15 @@ class TodoScreen extends StatelessWidget {
                                         ),
                                         actions: [
                                           TextButton(
-                                            onPressed: () =>
-                                                Navigator.pop(context),
+                                            onPressed: () => Navigator.pop(context),
                                             child: const Text('Cancel'),
                                           ),
                                           TextButton(
                                             onPressed: () {
-                                              if (controller
-                                                  .taskTextEditingController
-                                                  .text
-                                                  .isNotEmpty) {
+                                              if (controller.taskTextEditingController.text.isNotEmpty) {
                                                 controller.updateExistingTodo(
                                                   todo.id!,
-                                                  controller
-                                                      .taskTextEditingController
-                                                      .text,
+                                                  controller.taskTextEditingController.text,
                                                 );
                                                 Navigator.pop(context);
                                               }
@@ -127,13 +115,16 @@ class TodoScreen extends StatelessWidget {
                                   icon: const Icon(
                                     Icons.delete,
                                     color: AppColors.error,
-                                    size: 24,
                                   ),
-                                  onPressed: () =>
-                                      controller.deleteExistingTodo(todo.id!),
+                                  iconSize: 24.0,
+                                  visualDensity: VisualDensity.compact,
+                                  onPressed: () => controller.deleteExistingTodo(todo.id!),
                                 ),
                               ],
                             ),
+                            onTap: () {
+                              controller.toggleTodoStatus(todo.id!, todo.status);
+                            },
                           );
                         },
                       ),
@@ -162,8 +153,7 @@ class TodoScreen extends StatelessWidget {
                 TextButton(
                   onPressed: () {
                     if (controller.taskTextEditingController.text.isNotEmpty) {
-                      controller.addNewTodo(
-                          controller.taskTextEditingController.text);
+                      controller.addNewTodo(controller.taskTextEditingController.text);
                       Navigator.pop(context);
                     }
                   },
@@ -176,5 +166,31 @@ class TodoScreen extends StatelessWidget {
         child: const Icon(Icons.add),
       ),
     );
+  }
+
+  Widget _buildStatusIcon(String status) {
+    switch (status) {
+      case 'pending':
+        return const Icon(Icons.pending, color: AppColors.orange, size: 24.0);
+      case 'in_progress':
+        return const Icon(Icons.hourglass_empty, color: AppColors.primary, size: 24.0);
+      case 'completed':
+        return const Icon(Icons.check_circle, color: AppColors.green, size: 24.0);
+      default:
+        return const Icon(Icons.pending, color: AppColors.orange, size: 24.0);
+    }
+  }
+
+  String _formatStatus(String status) {
+    switch (status) {
+      case 'pending':
+        return 'Pending';
+      case 'in_progress':
+        return 'In Progress';
+      case 'completed':
+        return 'Completed';
+      default:
+        return 'Pending';
+    }
   }
 }
