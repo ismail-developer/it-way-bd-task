@@ -3,21 +3,21 @@ class TodoModel extends TodoEntity {
   TodoModel({
     super.id,
     required super.title,
-    required super.completed,
+    required super.status,
   });
 
   factory TodoModel.fromJson(Map<String, dynamic> json) {
     return TodoModel(
       id: json['id'],
       title: json['title'],
-      completed: json['completed'],
+      status: json['status'] ?? 'pending',
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
       'title': title,
-      'completed': completed,
+     'status': status,
     };
   }
 
@@ -25,7 +25,7 @@ class TodoModel extends TodoEntity {
     return TodoModel(
       id: entity.id,
       title: entity.title,
-      completed: entity.completed,
+      status: entity.status,
     );
   }
 }

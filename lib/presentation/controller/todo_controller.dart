@@ -7,20 +7,17 @@ import 'package:it_way_bd_task/domain/usecase/delete_todo.dart';
 import 'package:it_way_bd_task/domain/usecase/get_todo.dart';
 import 'package:it_way_bd_task/domain/usecase/toggle._todo.dart';
 import 'package:it_way_bd_task/domain/usecase/update_todo.dart';
-
 class TodoController extends GetxController {
   final GetTodos getTodos;
   final AddTodo addTodo;
   final UpdateTodo updateTodo;
   final ToggleTodo toggleTodo;
   final DeleteTodo deleteTodo;
-
   final todos = <TodoEntity>[].obs;
   final isLoading = false.obs;
   final taskTextEditingController = TextEditingController();
 
-  TodoController(this.getTodos, this.addTodo, this.updateTodo, this.toggleTodo,
-      this.deleteTodo);
+  TodoController(this.getTodos, this.addTodo, this.updateTodo, this.toggleTodo, this.deleteTodo);
 
   @override
   void onInit() {
@@ -33,7 +30,7 @@ class TodoController extends GetxController {
     try {
       todos.value = await getTodos();
     } catch (e) {
-      // Error already shown in TodoApiService via Get.snackbar
+      CustomSnackbar.showSnackbar('Failed to fetch todos');
     }
     isLoading.value = false;
   }
@@ -43,9 +40,9 @@ class TodoController extends GetxController {
     try {
       final newTodo = await addTodo(title);
       todos.add(newTodo);
-      CustomSnackbar.showSnackbar('Todo added successfully');
+       CustomSnackbar.showSnackbar('Todo added successfully');
     } catch (e) {
-      // Error already shown in TodoApiService via Get.snackbar
+         CustomSnackbar.showSnackbar('Failed to add todo');
     }
   }
 
@@ -58,24 +55,26 @@ class TodoController extends GetxController {
       } else {
         todos.add(updatedTodo);
       }
-      CustomSnackbar.showSnackbar('Todo updated successfully');
+        CustomSnackbar.showSnackbar('Todo updated successfully');
     } catch (e) {
-      // Error already shown in TodoApiService via Get.snackbar
+      CustomSnackbar.showSnackbar('Failed to update todo');
     }
   }
 
-  Future<void> toggleTodoCompletion(String id, bool completed) async {
+  Future<void> toggleTodoStatus(String id, String currentStatus) async {
     try {
-      final updatedTodo = await toggleTodo(id, completed);
       final index = todos.indexWhere((todo) => todo.id == id);
-      if (index != -1) {
-        todos[index] = updatedTodo;
-      } else {
-        todos.add(updatedTodo);
+      if (index == -1) {
+        CustomSnackbar.showSnackbar('Todo not found locally');
+        return;
       }
+      final updatedTodo = await toggleTodo(id, currentStatus);
+      todos[index] = updatedTodo;
+   
       CustomSnackbar.showSnackbar('Todo status updated successfully');
     } catch (e) {
-      // Error already shown in TodoApiService via Get.snackbar
+      
+      CustomSnackbar.showSnackbar('Failed to toggle todo');
     }
   }
 
@@ -83,9 +82,10 @@ class TodoController extends GetxController {
     try {
       await deleteTodo(id);
       todos.removeWhere((todo) => todo.id == id);
-      CustomSnackbar.showSnackbar('Todo deleted successfully');
+ 
+        CustomSnackbar.showSnackbar('Todo deleted successfully');
     } catch (e) {
-      // Error already shown in TodoApiService via Get.snackbar
+           CustomSnackbar.showSnackbar('Failed to delete todo');
     }
   }
 }
